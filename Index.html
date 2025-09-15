@@ -1,0 +1,619 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <!-- Primary Meta Tags -->
+    <title>Random Object Generator | Create Random Objects With Images</title>
+    <meta name="title" content="Random Object Generator | Create Random Objects With Images">
+    <meta name="description" content="Generate random objects with or without images. Perfect for design mockups, testing, and inspiration. Customize quantity and download your selections.">
+    <meta name="keywords" content="random object generator, mockup generator, design tool, image generator, placeholder images">
+    <meta name="author" content="Random Object Generator Team">
+    <meta name="robots" content="index, follow">
+    
+    <!-- Open Graph / Facebook (RDF) -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://randomobjectgenerator.com/">
+    <meta property="og:title" content="Random Object Generator | Create Random Objects With Images">
+    <meta property="og:description" content="Generate random objects with or without images. Perfect for design mockups, testing, and inspiration.">
+    <meta property="og:image" content="https://randomobjectgenerator.com/preview.jpg">
+    
+    <!-- Twitter (RDF) -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://randomobjectgenerator.com/">
+    <meta property="twitter:title" content="Random Object Generator | Create Random Objects With Images">
+    <meta property="twitter:description" content="Generate random objects with or without images. Perfect for design mockups, testing, and inspiration.">
+    <meta property="twitter:image" content="https://randomobjectgenerator.com/preview.jpg">
+    
+    <!-- Dublin Core Metadata (RDF) -->
+    <meta name="DC.title" content="Random Object Generator">
+    <meta name="DC.creator" content="Random Object Generator Team">
+    <meta name="DC.subject" content="Design, Tools, Mockups, Images">
+    <meta name="DC.description" content="Generate random objects with or without images">
+    <meta name="DC.publisher" content="Random Object Generator">
+    <meta name="DC.date" content="2023-10-15">
+    
+    <!-- JSON-LD structured data (RDF) -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebApplication",
+      "name": "Random Object Generator",
+      "url": "https://randomobjectgenerator.com/",
+      "description": "Generate random objects with or without images. Perfect for design mockups, testing, and inspiration.",
+      "applicationCategory": "DesignApplication",
+      "operatingSystem": "Web Browser",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD"
+      }
+    }
+    </script>
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);
+            color: #333;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+        
+        .container {
+            width: 100%;
+            max-width: 1000px;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+            overflow: hidden;
+        }
+        
+        .header {
+            background: linear-gradient(135deg, #2575fc 0%, #6a11cb 100%);
+            color: white;
+            padding: 25px 30px;
+            text-align: center;
+        }
+        
+        .header h1 {
+            font-size: 2.2rem;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+        }
+        
+        .header p {
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+        
+        .controls {
+            padding: 25px 30px;
+            background: #f8f9fa;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .toggle-container {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        
+        .toggle-label {
+            font-weight: 600;
+            color: #444;
+        }
+        
+        .toggle-switch {
+            position: relative;
+            display: inline-block;
+            width: 60px;
+            height: 30px;
+        }
+        
+        .toggle-switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+        
+        .slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: #ccc;
+            transition: .4s;
+            border-radius: 34px;
+        }
+        
+        .slider:before {
+            position: absolute;
+            content: "";
+            height: 22px;
+            width: 22px;
+            left: 4px;
+            bottom: 4px;
+            background-color: white;
+            transition: .4s;
+            border-radius: 50%;
+        }
+        
+        input:checked + .slider {
+            background-color: #2196F3;
+        }
+        
+        input:checked + .slider:before {
+            transform: translateX(30px);
+        }
+        
+        .quantity-selector {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .quantity-btn {
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+            border: none;
+            background: #2196F3;
+            color: white;
+            font-size: 1.2rem;
+            cursor: pointer;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            transition: all 0.3s;
+        }
+        
+        .quantity-btn:hover {
+            background: #1976D2;
+            transform: scale(1.1);
+        }
+        
+        #itemCount {
+            width: 50px;
+            text-align: center;
+            font-size: 1.1rem;
+            font-weight: 600;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            padding: 5px;
+        }
+        
+        .generate-btn {
+            background: linear-gradient(135deg, #FF5722 0%, #FF9800 100%);
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            border-radius: 50px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            transition: all 0.3s;
+            box-shadow: 0 4px 10px rgba(255, 87, 34, 0.3);
+        }
+        
+        .generate-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 15px rgba(255, 87, 34, 0.4);
+        }
+        
+        .generate-btn:active {
+            transform: translateY(0);
+        }
+        
+        .objects-container {
+            padding: 30px;
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 25px;
+            min-height: 400px;
+        }
+        
+        .object-card {
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s;
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+            border: 1px solid #eee;
+        }
+        
+        .object-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+        }
+        
+        .object-image {
+            width: 100%;
+            height: 160px;
+            object-fit: cover;
+            border-bottom: 2px solid #f0f0f0;
+        }
+        
+        .object-content {
+            padding: 15px;
+            display: flex;
+            flex-direction: column;
+            flex-grow: 1;
+        }
+        
+        .object-name {
+            font-weight: 700;
+            font-size: 1.1rem;
+            margin-bottom: 8px;
+            color: #2c3e50;
+        }
+        
+        .object-category {
+            color: #7f8c8d;
+            font-size: 0.9rem;
+            margin-bottom: 15px;
+        }
+        
+        .object-id {
+            margin-top: auto;
+            font-size: 0.8rem;
+            color: #95a5a6;
+            padding-top: 10px;
+            border-top: 1px dashed #eee;
+        }
+        
+        .empty-state {
+            grid-column: 1 / -1;
+            text-align: center;
+            padding: 40px;
+            color: #7f8c8d;
+        }
+        
+        .empty-icon {
+            font-size: 4rem;
+            margin-bottom: 20px;
+            opacity: 0.5;
+        }
+        
+        .footer {
+            background: #f8f9fa;
+            padding: 20px;
+            text-align: center;
+            color: #6c757d;
+            font-size: 0.9rem;
+            border-top: 1px solid #e9ecef;
+        }
+        
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            .objects-container {
+                grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+                gap: 15px;
+                padding: 20px;
+            }
+            
+            .header h1 {
+                font-size: 1.8rem;
+            }
+            
+            .controls {
+                flex-direction: column;
+                padding: 20px;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .objects-container {
+                grid-template-columns: 1fr 1fr;
+            }
+            
+            .header {
+                padding: 20px;
+            }
+            
+            .header h1 {
+                font-size: 1.5rem;
+            }
+            
+            .generate-btn {
+                width: 100%;
+                justify-content: center;
+            }
+        }
+        
+        /* Animation for generated items */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .object-card {
+            animation: fadeIn 0.5s ease-out;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1><i class="fas fa-cube"></i> Random Object Generator</h1>
+            <p>Generate random objects with or without images</p>
+        </div>
+        
+        <div class="controls">
+            <div class="toggle-container">
+                <span class="toggle-label">Include Images:</span>
+                <label class="toggle-switch">
+                    <input type="checkbox" id="withImages" checked>
+                    <span class="slider"></span>
+                </label>
+            </div>
+            
+            <div class="quantity-selector">
+                <button class="quantity-btn minus" id="decreaseQty">-</button>
+                <input type="number" id="itemCount" min="1" max="20" value="10">
+                <button class="quantity-btn plus" id="increaseQty">+</button>
+            </div>
+            
+            <button id="generateBtn" class="generate-btn">
+                <i class="fas fa-bolt"></i> Generate Objects
+            </button>
+        </div>
+        
+        <div class="objects-container" id="objectsContainer">
+            <div class="empty-state">
+                <div class="empty-icon"><i class="fas fa-box-open"></i></div>
+                <p>No objects generated yet. Click the button to start!</p>
+            </div>
+        </div>
+        
+        <div class="footer">
+            <p>Random Object Generator &bull; Perfect for design mockups and testing</p>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const generateBtn = document.getElementById('generateBtn');
+            const withImagesCheckbox = document.getElementById('withImages');
+            const objectsContainer = document.getElementById('objectsContainer');
+            const itemCountInput = document.getElementById('itemCount');
+            const decreaseQtyBtn = document.getElementById('decreaseQty');
+            const increaseQtyBtn = document.getElementById('increaseQty');
+            
+            let itemCount = 10;
+            
+            // List of random objects with categories and image URLs
+            const objects = [
+                { 
+                    name: "Hardcover Book", 
+                    category: "Education", 
+                    image: "https://images.unsplash.com/photo-1544947950-fa07a98d237f?w=300&auto=format&fit=crop" 
+                },
+                { 
+                    name: "MacBook Pro", 
+                    category: "Electronics", 
+                    image: "https://images.unsplash.com/photo-1593642632823-8f785ba67e45?w=300&auto=format&fit=crop" 
+                },
+                { 
+                    name: "Ceramic Mug", 
+                    category: "Kitchenware", 
+                    image: "https://images.unsplash.com/photo-1517256064527-09c73fc73e38?w=300&auto=format&fit=crop" 
+                },
+                { 
+                    name: "Wireless Headphones", 
+                    category: "Electronics", 
+                    image: "https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=300&auto=format&fit=crop" 
+                },
+                { 
+                    name: "Leather Notebook", 
+                    category: "Stationery", 
+                    image: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=300&auto=format&fit=crop" 
+                },
+                { 
+                    name: "Smart Watch", 
+                    category: "Accessories", 
+                    image: "https://images.unsplash.com/photo-1523170335258-f5ed11844a49?w=300&auto=format&fit=crop" 
+                },
+                { 
+                    name: "Succulent Plant", 
+                    category: "Home Decor", 
+                    image: "https://images.unsplash.com/photo-1485955900006-10f4d324d411?w=300&auto=format&fit=crop" 
+                },
+                { 
+                    name: "Aviator Sunglasses", 
+                    category: "Accessories", 
+                    image: "https://images.unsplash.com/photo-1511499767150-a48a237f0083?w=300&auto=format&fit=crop" 
+                },
+                { 
+                    name: "Hiking Backpack", 
+                    category: "Fashion", 
+                    image: "https://images.unsplash.com/photo-1553062407-98eeb64c6a62?w=300&auto=format&fit=crop" 
+                },
+                { 
+                    name: "DSLR Camera", 
+                    category: "Electronics", 
+                    image: "https://images.unsplash.com/photo-1516035069371-29a1b244cc32?w=300&auto=format&fit=crop" 
+                },
+                { 
+                    name: "Stainless Bottle", 
+                    category: "Fitness", 
+                    image: "https://images.unsplash.com/photo-1589365278144-c9e705f843ba?w=300&auto=format&fit=crop" 
+                },
+                { 
+                    name: "Modern Desk Lamp", 
+                    category: "Furniture", 
+                    image: "https://images.unsplash.com/photo-1580477667995-2b94f01c9516?w=300&auto=format&fit=crop" 
+                },
+                { 
+                    name: "Mechanical Keyboard", 
+                    category: "Electronics", 
+                    image: "https://images.unsplash.com/photo-1587829741301-dc798b83add3?w=300&auto=format&fit=crop" 
+                },
+                { 
+                    name: "Ergonomic Mouse", 
+                    category: "Electronics", 
+                    image: "https://images.unsplash.com/photo-1527814050087-3793815479db?w=300&auto=format&fit=crop" 
+                },
+                { 
+                    name: "Office Chair", 
+                    category: "Furniture", 
+                    image: "https://images.unsplash.com/photo-1517705008128-361805f42e86?w=300&auto=format&fit=crop" 
+                },
+                { 
+                    name: "iPhone 13", 
+                    category: "Electronics", 
+                    image: "https://images.unsplash.com/photo-1592899677977-9c10ca588bbd?w=300&auto=format&fit=crop" 
+                },
+                { 
+                    name: "Leather Wallet", 
+                    category: "Accessories", 
+                    image: "https://images.unsplash.com/photo-1600857544200-b2f666a9a2ec?w=300&auto=format&fit=crop" 
+                },
+                { 
+                    name: "Bluetooth Speaker", 
+                    category: "Electronics", 
+                    image: "https://images.unsplash.com/photo-1572569511254-d8f925fe2cbb?w=300&auto=format&fit=crop" 
+                },
+                { 
+                    name: "Fountain Pen", 
+                    category: "Stationery", 
+                    image: "https://images.unsplash.com/photo-1585336261022-680e295ce3fe?w=300&auto=format&fit=crop" 
+                },
+                { 
+                    name: "Running Sneakers", 
+                    category: "Footwear", 
+                    image: "https://images.unsplash.com/photo-1600269452121-4f2416e55c28?w=300&auto=format&fit=crop" 
+                }
+            ];
+            
+            // Quantity controls
+            decreaseQtyBtn.addEventListener('click', function() {
+                if (itemCount > 1) {
+                    itemCount--;
+                    itemCountInput.value = itemCount;
+                }
+            });
+            
+            increaseQtyBtn.addEventListener('click', function() {
+                if (itemCount < 20) {
+                    itemCount++;
+                    itemCountInput.value = itemCount;
+                }
+            });
+            
+            itemCountInput.addEventListener('change', function() {
+                let value = parseInt(this.value);
+                if (isNaN(value) || value < 1) {
+                    this.value = 1;
+                    itemCount = 1;
+                } else if (value > 20) {
+                    this.value = 20;
+                    itemCount = 20;
+                } else {
+                    itemCount = value;
+                }
+            });
+            
+            // Generate objects
+            generateBtn.addEventListener('click', function() {
+                const withImages = withImagesCheckbox.checked;
+                
+                // Show loading state
+                generateBtn.disabled = true;
+                generateBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Generating...';
+                
+                // Clear container
+                objectsContainer.innerHTML = '';
+                
+                // Shuffle array and take selected amount
+                const shuffled = [...objects].sort(() => 0.5 - Math.random());
+                const selectedObjects = shuffled.slice(0, itemCount);
+                
+                // Create all cards with staggered animation
+                if (selectedObjects.length === 0) {
+                    objectsContainer.innerHTML = `
+                        <div class="empty-state">
+                            <div class="empty-icon"><i class="fas fa-exclamation-circle"></i></div>
+                            <p>No objects to display. Please select at least 1 object.</p>
+                        </div>
+                    `;
+                } else {
+                    selectedObjects.forEach((obj, index) => {
+                        setTimeout(() => {
+                            const card = document.createElement('div');
+                            card.className = 'object-card';
+                            
+                            if (withImages) {
+                                const img = document.createElement('img');
+                                img.className = 'object-image';
+                                img.alt = obj.name;
+                                img.src = obj.image;
+                                img.loading = 'lazy';
+                                card.appendChild(img);
+                            }
+                            
+                            const contentDiv = document.createElement('div');
+                            contentDiv.className = 'object-content';
+                            
+                            const nameEl = document.createElement('div');
+                            nameEl.className = 'object-name';
+                            nameEl.textContent = obj.name;
+                            contentDiv.appendChild(nameEl);
+                            
+                            const categoryEl = document.createElement('div');
+                            categoryEl.className = 'object-category';
+                            categoryEl.textContent = obj.category;
+                            contentDiv.appendChild(categoryEl);
+                            
+                            const idEl = document.createElement('div');
+                            idEl.className = 'object-id';
+                            idEl.textContent = `ID: ${Math.floor(10000 + Math.random() * 90000)}`;
+                            contentDiv.appendChild(idEl);
+                            
+                            card.appendChild(contentDiv);
+                            objectsContainer.appendChild(card);
+                        }, index * 100);
+                    });
+                }
+                
+                // Reset button state
+                setTimeout(() => {
+                    generateBtn.disabled = false;
+                    generateBtn.innerHTML = '<i class="fas fa-bolt"></i> Generate Objects';
+                }, 500);
+            });
+            
+            // Generate objects on initial load
+            generateBtn.click();
+        });
+    </script>
+    
+    <!-- Font Awesome for icons -->
+    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+</body>
+</html>
